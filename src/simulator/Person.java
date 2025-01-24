@@ -1,7 +1,5 @@
 package simulator;
-
 import java.util.Random;
-
 public class Person {
     private final String gender;
     private int age;
