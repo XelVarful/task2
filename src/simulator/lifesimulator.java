@@ -1,48 +1,53 @@
 package simulator;
+
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Timer;
-import java.util.TimerTask;
+import java.util.TimerTask; // Абстрактый класс
 
 public class lifesimulator {
     public static void main(String[] args) {
         final int width = 100;
         final int height = 100;
-        final int initialPeopleCount = new Random().nextInt(6) + 10; // создать от 10 до 15 людей
+        final int initialPeopleCount = new Random().nextInt(6) + 10; // от 10 до 15
+        final int initialBacteriaCount = new Random().nextInt(5) + 4; // от 4 до 8
 
-        territory territory = new territory(width, height, initialPeopleCount);
+        territory territory = new territory(width, height, initialPeopleCount, initialBacteriaCount);
 
         Timer timer = new Timer();
 
-        // Задача для перемещения людей каждые 2 миллисекунды
         timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
             public void run() {
-                territory.movePeople();
+                territory.moveEntities();
                 territory.simulateReproduction();
             }
-        }, 0, 200);
-
-        // Задача для старения людей каждую минуту
+        }, 0, 200); // каждые 20 секунд также можно сделать значение меньше для примера
         timer.scheduleAtFixedRate(new TimerTask() {
-
+            public void run() {
+                territory.moveEntities();
+                territory.simulateBacteriaEffects();
+            }
+        }, 0, 2000);
+        timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 territory.agePeople();
             }
-        }, 0, 60000); // но для теста можно устновить значение меньше
+        }, 0, 60000); // каждая минута для примера можно поставить знанчение меньше
 
-        // Основное меню
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
         while (true) {
             System.out.println("\nСимуляция жизни");
             System.out.println("1. Показать всех людей");
-            System.out.println("2. Выход");
+            System.out.println("2. Показать всех бактерий");
+            System.out.println("3. Выход");
             System.out.print("Выберите действие: ");
 
+            Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1 -> territory.displayPeople();
-                case 2 -> {
+                case 2 -> territory.displayBacteria();
+                case 3 -> {
                     System.out.println("Выход из программы.");
                     timer.cancel();
                     return;
