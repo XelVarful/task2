@@ -2,11 +2,11 @@ package simulator;
 
 import java.util.Random;
 
-public class bacteria {
+public class Bacteria {
     private int x;
     private int y;
 
-    public bacteria(int x, int y) {
+    public Bacteria(int x, int y) {
         this.x = x;
         this.y = y;
     }

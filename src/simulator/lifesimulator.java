@@ -9,10 +9,10 @@ public class lifesimulator {
     public static void main(String[] args) {
         final int width = 100;
         final int height = 100;
-        final int initialPeopleCount = new Random().nextInt(6) + 10; // от 10 до 15
-        final int initialBacteriaCount = new Random().nextInt(5) + 4; // от 4 до 8
+        final int initialPeopleCount = new Random().nextInt(17) + 10; // от 10 до 15
+        final int initialBacteriaCount = new Random().nextInt(7) + 4; // от 4 до 8
 
-        territory territory = new territory(width, height, initialPeopleCount, initialBacteriaCount);
+        Territory territory = new Territory(width, height, initialPeopleCount, initialBacteriaCount);
 
         Timer timer = new Timer();
 
@@ -25,14 +25,17 @@ public class lifesimulator {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 territory.moveEntities();
-                territory.simulateBacteriaEffects();
             }
+        }, 0, 200);
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                territory.simulateBacteriaEffects();}
         }, 0, 2000);
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 territory.agePeople();
             }
-        }, 0, 60000); // каждая минута для примера можно поставить знанчение меньше
+        }, 0, 30000); // каждая минута для примера можно поставить знанчение меньше
 
         while (true) {
             System.out.println("\nСимуляция жизни");
