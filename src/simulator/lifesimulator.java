@@ -21,7 +21,7 @@ public class lifesimulator {
                 territory.moveEntities();
                 territory.simulateReproduction();
             }
-        }, 0, 200); // каждые 20 секунд также можно сделать значение меньше для примера
+        }, 0, 200); // каждые 2 милисекунды также можно сделать значение меньше для примера
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 territory.moveEntities();
@@ -35,7 +35,7 @@ public class lifesimulator {
             public void run() {
                 territory.agePeople();
             }
-        }, 0, 30000); // каждая минута для примера можно поставить знанчение меньше
+        }, 0, 30000); // каждые 30 сек для примера можно поставить знанчение меньше
 
         while (true) {
             System.out.println("\nСимуляция жизни");
