@@ -18,7 +18,7 @@ public class Territory {
         initializeBacteria(initialBacteriaCount);
     }
 
-    private void initializePeople(int count) {
+    private void initializePeople(int count) {  // инициальзация людей
         for (int i = 0; i < count; i++) {
             String gender = ThreadLocalRandom.current().nextBoolean() ? "Мужчина" : "Женщина";
             int age = ThreadLocalRandom.current().nextInt(80);
@@ -28,7 +28,7 @@ public class Territory {
         }
     }
 
-    private void initializeBacteria(int count) {
+    private void initializeBacteria(int count) { // инициализацию бактерии
         for (int i = 0; i < count; i++) {
             int x = ThreadLocalRandom.current().nextInt(width);
             int y = ThreadLocalRandom.current().nextInt(height);
@@ -36,12 +36,12 @@ public class Territory {
         }
     }
 
-    public void moveEntities() {
+    public void moveEntities() { // перемещение обьектов
         people.forEach(person -> person.move(width, height));
         bacteria.forEach(bact -> bact.move(width, height));
     }
 
-    public void agePeople() {
+    public void agePeople() { // метод для возраста
         Predicate<Person> isOldAndDies = person -> {
             if (person.getAge() >= 75 && ThreadLocalRandom.current().nextDouble() < 0.7) {
                 System.out.println(person + " умер от старости");
@@ -53,7 +53,7 @@ public class Territory {
         people.removeIf(isOldAndDies);
     }
 
-    public void simulateReproduction() {
+    public void simulateReproduction() { // метод для рождаемости
         ArrayList<Person> newPeople = new ArrayList<>();
 
         for (int i = 0; i < people.size(); i++) {
@@ -78,7 +78,7 @@ public class Territory {
         }
     }
 
-    public void simulateBacteriaEffects() {
+    public void simulateBacteriaEffects() { // метод для обьекта батерия
         // Убийство бактерий, если они находятся в одной клетке
         ArrayList<Bacteria> bacteriaToRemove = new ArrayList<>();
         for (Bacteria bact1 : bacteria) {
@@ -102,12 +102,12 @@ public class Territory {
         for (Person person : people) {
             for (Bacteria bact : bacteria) {
                 if (person.getX() == bact.getX() && person.getY() == bact.getY()) {
-                    // 50% шанс, что бактерия убьет человека
+                    // 50% шанс что бактерия убьет человека
                     if (ThreadLocalRandom.current().nextDouble() < 0.4) {
                         peopleToRemove.add(person);
                         System.out.println("Человек " + person + " убит бактерией ");
                     }
-                    // 50% шанс, что человек убьет бактерию
+                    // 50% шанс что человек убьет бактерию
                     else if (ThreadLocalRandom.current().nextDouble() < 0.6) {
                         bacteriaKilledByPeople.add(bact);
                         System.out.println("Бактерия " + bact + " убита человеком ");
@@ -136,12 +136,12 @@ public class Territory {
         return newBacteria;
     }
 
-    public void displayPeople() {
+    public void displayPeople() { // вывод на экран информацию про людей
         System.out.println("Количество людей: " + people.size());
         people.forEach(System.out::println);
     }
 
-    public void displayBacteria() {
+    public void displayBacteria() { // вывод информации про бактерии
         System.out.println("Количество бактерий: " + bacteria.size());
         bacteria.forEach(System.out::println);
     }
