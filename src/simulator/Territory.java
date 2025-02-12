@@ -102,12 +102,12 @@ public class Territory {
         for (Person person : people) {
             for (Bacteria bact : bacteria) {
                 if (person.getX() == bact.getX() && person.getY() == bact.getY()) {
-                    // 50% шанс что бактерия убьет человека
+                    // 40% шанс что бактерия убьет человека
                     if (ThreadLocalRandom.current().nextDouble() < 0.4) {
                         peopleToRemove.add(person);
                         System.out.println("Человек " + person + " убит бактерией ");
                     }
-                    // 50% шанс что человек убьет бактерию
+                    // 60% шанс что человек убьет бактерию
                     else if (ThreadLocalRandom.current().nextDouble() < 0.6) {
                         bacteriaKilledByPeople.add(bact);
                         System.out.println("Бактерия " + bact + " убита человеком ");
